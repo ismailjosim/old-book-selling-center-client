@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import BookModal from './BookModal';
 
 const Category = () => {
+    const info = {
+        name: 'demo',
+        price: 500,
+        email: 'example@gmail.com'
+    }
     return (
         <div className=''>
             <div className='bg-black text-white py-3 font-medium pl-5'>
@@ -24,7 +30,7 @@ const Category = () => {
                         <p>posted Date</p>
                         <p>Seller name - verified tik</p>
                         <div className="card-actions">
-                            <button className="btn btn-primary">Book Now</button>
+                            <Link className="btn btn-primary">Book Now</Link>
                         </div>
                     </div>
                 </div>
@@ -62,11 +68,18 @@ const Category = () => {
                         <p>posted Date</p>
                         <p>Seller name - verified tik</p>
                         <div className="card-actions">
-                            <button className="btn btn-primary">Book Now</button>
+                            <Link className="btn btn-primary">Book Now</Link>
+                            <label htmlFor="book-modal" className="btn">open modal</label>
                         </div>
                     </div>
                 </div>
             </div>
+            {
+                <BookModal
+                    info={info}
+                >
+                </BookModal>
+            }
         </div>
     );
 };

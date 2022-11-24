@@ -23,9 +23,6 @@ const UserRegister = () => {
                 console.log("Error Found!", error);
             })
 
-
-
-
     }
 
 

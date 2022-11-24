@@ -4,12 +4,14 @@ import logo from '../assets/old-book-center-logo.png'
 
 const Header = () => {
 
-    const menuItems = <>
+    const navigationItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/about'>about</Link></li>
         <li><Link to='/services'>Services</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
+        <li><Link to='/login'>login</Link></li>
+        <li><Link to='/signup'>Sign Up</Link></li>
     </>
 
 
@@ -22,7 +24,7 @@ const Header = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
-                    {menuItems}
+                    {navigationItems}
                 </ul>
             </div>
             <div className="navbar-end">
@@ -34,7 +36,7 @@ const Header = () => {
                         </svg>
                     </label>
                     <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        {menuItems}
+                        {navigationItems}
                     </ul>
                 </div>
             </div>

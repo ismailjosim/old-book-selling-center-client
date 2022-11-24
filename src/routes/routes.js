@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import UserRegister from '../components/Auth/UserRegister';
 import Category from '../components/Pages/Category/Category';
 import Home from '../components/Pages/Home/Home';
 import Main from '../layouts/Main';
@@ -21,7 +22,12 @@ const routes = createBrowserRouter([
                 path: '/categories/:id',
                 element: <Category />
 
-            }
+            },
+            {
+                path: '/signup',
+                element: <UserRegister />
+
+            },
         ]
     }
 

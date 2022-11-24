@@ -78,6 +78,7 @@ const Category = () => {
                 <BookModal
                     info={info}
                 >
+
                 </BookModal>
             }
         </div>

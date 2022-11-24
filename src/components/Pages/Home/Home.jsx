@@ -1,9 +1,14 @@
 import React from 'react';
+import Categories from '../Categories/Categories';
+import HeroBanner from './HeroBanner/HeroBanner';
+
+
 
 const Home = () => {
     return (
         <div>
-            <h3>Welcome To Homepage</h3>
+            <HeroBanner />
+            <Categories />
         </div>
     );
 };

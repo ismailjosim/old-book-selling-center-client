@@ -1,0 +1,26 @@
+Class 10 Complete Set
+Date : November 20, 2022
+Condition : Used
+Location : Hayatabad Peshawar
+price: 1500
+
+Drawing Books
+Type : Sell
+Date : November 23, 2022
+Condition : New
+Location : Saddar, Rawalpindi
+price: 6000
+
+Harry Potter book no 1 and 4.
+Type : Sell
+Date : November 22, 2022
+Condition : Used
+Location : State Life Housing Phase 1, Lahore
+price: 500
+
+Dairy of a Wimpy Kid series books and Matilda book
+Type : Sell
+Date : November 20, 2022
+Condition : Used
+Location : G-14/4, Islamabad
+price: 700

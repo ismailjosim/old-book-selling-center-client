@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import img1 from '../../../assets/books-categories/book-academic.png';
 import { Link } from 'react-router-dom';
 
 
@@ -28,7 +27,8 @@ const Categories = () => {
                     categories?.map(category => {
                         return (
                             <div key={category._id} className="flex flex-col justify-center items-center">
-                                <Link to='/categories/:id'>
+                                <Link to={`/category/${ category.categories_id }`}
+                                >
                                     <div className="bg-slate-200 w-40 h-40 flex justify-center items-center rounded-full">
                                         <img alt='' className='p-10' src={category.img} />
                                     </div>

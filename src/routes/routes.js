@@ -1,8 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import UserLogin from '../components/Auth/UserLogin';
 import UserRegister from '../components/Auth/UserRegister';
+import Sellers from '../components/Dashboard/Admin/Sellers/Sellers';
+import Dashboard from '../components/Dashboard/Dashboard';
 import Category from '../components/Pages/Category/Category';
 import Home from '../components/Pages/Home/Home';
+import DashboardLayout from '../layouts/DashboardLayout';
 import Main from '../layouts/Main';
 import Private from './Private';
 
@@ -41,10 +44,11 @@ const routes = createBrowserRouter([
     {
         path: '/dashboard',
         errorElement: <h3>Page Not found!</h3>,
-        element: <Private></Private>,
+        element: <Private><DashboardLayout /></Private>,
         children: [
             {
                 path: '/dashboard',
+                element: <Sellers />
             }
         ]
     }

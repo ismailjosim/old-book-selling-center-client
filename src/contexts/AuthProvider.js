@@ -41,9 +41,6 @@ const AuthProvider = ({ children }) => {
     }, [])
 
 
-
-
-
     const authInfo =
     {
         UserRegister,

@@ -6,19 +6,21 @@ import useAdmin from '../hooks/useAdmin';
 
 const Admin = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
-    const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+    // const [isAdmin, isAdminLoading] = useAdmin(user?.email);
     const location = useLocation();
 
-    if (loading || isAdminLoading) {
+    if (loading) {
         return <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
     }
 
     // if (user && isAdmin) {
     //     return children;
     // }
+    if (user) {
+        return children;
+    }
 
-
-    return <Navigate to='/login' state={{ from: location }} replace></Navigate>
+    // return <Navigate to='/login' state={{ from: location }} replace></Navigate>
 
 };
 

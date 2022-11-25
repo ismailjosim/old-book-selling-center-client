@@ -3,6 +3,7 @@ import UserLogin from '../components/Auth/UserLogin';
 import UserRegister from '../components/Auth/UserRegister';
 import Sellers from '../components/Dashboard/Admin/Sellers/Sellers';
 import Dashboard from '../components/Dashboard/Dashboard';
+import Blog from '../components/Pages/Blog/Blog';
 import Category from '../components/Pages/Category/Category';
 import Home from '../components/Pages/Home/Home';
 import DashboardLayout from '../layouts/DashboardLayout';
@@ -32,6 +33,11 @@ const routes = createBrowserRouter([
             {
                 path: '/signup',
                 element: <UserRegister />
+
+            },
+            {
+                path: '/blog',
+                element: <Blog />
 
             },
             {

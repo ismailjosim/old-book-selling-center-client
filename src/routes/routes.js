@@ -4,6 +4,7 @@ import UserRegister from '../components/Auth/UserRegister';
 import Category from '../components/Pages/Category/Category';
 import Home from '../components/Pages/Home/Home';
 import Main from '../layouts/Main';
+import Private from './Private';
 
 
 
@@ -22,7 +23,7 @@ const routes = createBrowserRouter([
             {
                 path: '/category/:id',
                 loader: ({ params }) => fetch(`http://localhost:5000/category/${ params.id }`),
-                element: <Category />
+                element: <Private><Category /></Private>
 
             },
             {

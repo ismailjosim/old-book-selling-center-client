@@ -4,35 +4,30 @@ import logo from '../assets/old-book-center-logo.png'
 import { AuthContext } from '../contexts/AuthProvider';
 
 const Header = () => {
-    const { user } = useContext(AuthContext)
+    const { user, userLogout } = useContext(AuthContext)
 
 
 
-
+    // handle User Log Out
     const handleUserLogout = () => {
-        // userLogout().then(result => { }).catch(error => console.log(error.message))
+        userLogout().then(result => { }).catch(error => console.log(error.message))
     }
 
 
-
-
-
+    // navigation items function
     const navigationItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/about'>about</Link></li>
         <li><Link to='/services'>Services</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
-        <li className='list-none'><button className='select-none'>{user?.email}</button></li>
-        <li className='list-none'> <button onClick={handleUserLogout} className="btn btn-md rounded-md btn-outline btn-primary">Logout</button></li>
         {user?.uid ?
-            <div className='flex gap-3 items-center dropdown dropdown-bottom dropdown-end'>
-                <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li className='list-none'><button className='select-none btn-disabled'>{user.email}</button></li>
-                </ul>
-            </div>
-            :
-            <Link to='/login' className="btn btn-md rounded-md btn-outline btn-primary">Log In</Link>
+            <>
+                <li><p className='uppercase'>{user.displayName}</p></li>
+                <li><Link className='hover:btn-secondary rounded-md hover:text-white' to='/dashboard'>Dashboard</Link></li>
+                <li><button onClick={handleUserLogout} className='hover:btn-secondary btn-primary text-white rounded-md'>Logout</button></li>
+            </> :
+            <li><Link className='hover:btn-secondary rounded-md hover:text-white' to='/login'>Login</Link></li>
         }
     </>
 

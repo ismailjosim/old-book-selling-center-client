@@ -3,7 +3,7 @@ import BookModal from './BookModal';
 import { Link } from 'react-router-dom';
 
 const Card = ({ book }) => {
-    const { _id, title, condition, location, originalPrice, photo, postTime, resalePrice, useYears } = book;
+    const { title, condition, location, originalPrice, photo, postTime, resalePrice, useYears } = book;
 
 
     const info = {

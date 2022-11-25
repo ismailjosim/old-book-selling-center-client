@@ -1,69 +1,134 @@
 import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 
 const UserRegister = () => {
-    const { UserRegister } = useContext(AuthContext);
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { UserRegister, updateUserInfo } = useContext(AuthContext);
 
 
-    const handleUserRegister = e => {
-        e.preventDefault();
-        const form = e.target;
-        // const name = form.name.value;
-        // const photoURL = form.photoURL.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        UserRegister(email, password)
+
+
+    const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])");
+
+    // TODO: User Login Function
+    const onSubmit = data => {
+        // 1. Create New User
+        UserRegister(data.email, data.password)
             .then(result => {
+
+                // user profile
                 const user = result.user;
-                console.log(user);
-                form.reset();
+                const profile = {
+                    displayName: data.name,
+                }
+                // 2. Update New User
+                updateUserInfo(profile)
+                    .then(() => {
+                        // 3. save user email & pass to database
+                        // saveUserInfo(user.displayName, user.email);
+
+                    })
+                    .catch(error => console.log(error.message))
             })
             .catch(error => {
-                console.log("Error Found!", error);
+                console.log(error.message);
             })
-
     }
 
 
-    return (
-        <div className='flex justify-center my-10'>
-            <div className="flex flex-col p-6 rounded-md sm:p-10 shadow-md bg-secondary">
-                <div className="mb-8 text-center">
-                    <h1 className="my-3 text-4xl font-bold text-white">Sign UP</h1>
-                </div>
-                <form onSubmit={handleUserRegister} className="space-y-12 ng-untouched ng-pristine ng-valid">
-                    <div className="space-y-4">
-                        <div>
-                            <label htmlFor="name" className="block mb-2 text-sm text-left">Full Name</label>
-                            <input type="text" name="name" placeholder="Your Full Name" className="w-full px-3 py-2 border rounded-md" required />
-                        </div>
-                        <div>
-                            <label htmlFor="photoURL" className="block mb-2 text-sm text-left">Photo URL</label>
-                            <input type="text" name="photoURL" placeholder="Your Photo URL" className="w-full px-3 py-2 border rounded-md" required />
-                        </div>
-                        <div>
-                            <label htmlFor="email" className="block mb-2 text-sm text-left">Email address</label>
-                            <input type="email" name="email" placeholder="example@gmail.com" className="w-full px-3 py-2 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" required />
-                        </div>
 
-                        <div>
-                            <div className="flex justify-between mb-2">
-                                <label htmlFor="password" className="text-sm">Password</label>
-                            </div>
-                            <input type="password" name="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" required />
-                        </div>
-                    </div>
-                    <div className="space-y-2">
-                        <div>
-                            <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md dark:bg-violet-400 text-white">Sign UP</button>
-                        </div>
-                        <p className="px-6 text-sm text-center text-white">Already have an account?
-                            <a href="/login" className="hover:underline dark:text-violet-400 ml-1">Sign In</a>.
-                        </p>
-                    </div>
-                </form>
-            </div>
+
+
+    // todo 3 : save user info to database function
+    // const saveUserInfo = (name, email) => {
+    //     const user = { name, email }
+    //     fetch('https://doctor-portal-server-tawny.vercel.app/users', {
+    //         method: 'POST',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(user)
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setNewUserEmail(email);
+
+    //         })
+    // }
+    // }
+
+
+    return (
+        <div className='max-w-sm mx-auto my-28  p-5 rounded-lg shadow-md border border-primary'>
+            <h3 className='text-center font-normal text-2xl mb-8'>Login Here</h3>
+            <form onSubmit={handleSubmit(onSubmit)}>
+
+                {/* TODO: input Email */}
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Name</span>
+                    </label>
+                    <input type="text" {...register("name",
+                        {
+                            required: "Name is Required"
+                        })}
+                        className="input input-primary input-bordered w-full" />
+                    {errors.name && <p className='text-error font-medium mt-1'>{errors.name?.message}</p>}
+
+                </div>
+
+                {/* TODO: input Email */}
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Email</span>
+                    </label>
+                    <input type="email" {...register("email",
+                        {
+                            required: "Email is Required"
+                        })}
+                        className="input input-primary input-bordered w-full" />
+                    {errors.email && <p className='text-error font-medium mt-1'>{errors.email?.message}</p>}
+
+                </div>
+                {/* TODO: input Password */}
+                <div className="form-control w-full my-5">
+                    <label className="label">
+                        <span className="label-text">Password</span>
+                    </label>
+                    <input {...register("password", {
+                        required: 'Invalid Password',
+                        minLength: { value: 6, message: "Password Must Be 6 Characters Or longer." },
+                        pattern: {
+                            value: strongRegex,
+                            message: "Password Must Be Strong!"
+                        }
+
+                    })} type="password" className="input input-bordered w-full input-primary" />
+                    {errors.password && <p className='text-error font-medium mt-1'>{errors.password?.message}</p>}
+
+                </div>
+
+                {/* TODO: submit button */}
+                <div className="form-control w-full mt-5">
+                    <button type="submit" className="btn btn-secondary text-white w-full font-normal">Sign Up</button>
+                </div>
+
+                {/* TODO: Form submit button */}
+                <div className='mt-3 mb-5 text-center text-sm'>
+                    <span>Already have account?</span> <Link className='text-accent hover:text-primary' to='/login'>Login</Link>
+                </div>
+
+                <div className="divider">OR</div>
+
+                {/* TODO: Form Google login button */}
+                <div className="form-control w-full my-5">
+                    <button className="btn btn-outline hover:text-white">CONTINUE WITH GOOGLE</button>
+                </div>
+
+            </form>
         </div>
     );
 };

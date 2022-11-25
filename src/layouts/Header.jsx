@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/old-book-center-logo.png'
+import { AuthContext } from '../contexts/AuthProvider';
 
 const Header = () => {
+    const { user } = useContext(AuthContext)
+
+
+
+
+    const handleUserLogout = () => {
+        // userLogout().then(result => { }).catch(error => console.log(error.message))
+    }
+
+
+
+
 
     const navigationItems = <>
         <li><Link to='/'>Home</Link></li>
@@ -10,8 +23,17 @@ const Header = () => {
         <li><Link to='/services'>Services</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
-        <li><Link to='/login'>login</Link></li>
-        <li><Link to='/signup'>Sign Up</Link></li>
+        <li className='list-none'><button className='select-none'>{user?.email}</button></li>
+        <li className='list-none'> <button onClick={handleUserLogout} className="btn btn-md rounded-md btn-outline btn-primary">Logout</button></li>
+        {user?.uid ?
+            <div className='flex gap-3 items-center dropdown dropdown-bottom dropdown-end'>
+                <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li className='list-none'><button className='select-none btn-disabled'>{user.email}</button></li>
+                </ul>
+            </div>
+            :
+            <Link to='/login' className="btn btn-md rounded-md btn-outline btn-primary">Log In</Link>
+        }
     </>
 
 
@@ -48,21 +70,7 @@ export default Header;
 
 /*
 
-  {user?.email ?
-                    <div className='flex gap-3 items-center dropdown dropdown-bottom dropdown-end'>
-                        <div tabIndex={0}>
-                            <img className='rounded-full w-12' alt={user.displayName} src={user.photoURL} />
-                        </div>
-                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <li className='list-none'><button className='select-none btn-disabled'>{user.displayName}</button></li>
-                            <li className='list-none'><Link to='/review'>My Reviews</Link></li>
-                            <li className='list-none'><Link to='/addService'>Add Services</Link></li>
-                            <li className='list-none'> <button onClick={handleUserRemove} className="btn btn-md rounded-md btn-outline btn-primary">Logout</button></li>
-                        </ul>
-                    </div>
-                    :
-                    <Link to='/login' className="btn btn-md rounded-md btn-outline btn-primary">Log In</Link>
-                }
+
 
 
 

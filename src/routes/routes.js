@@ -37,6 +37,16 @@ const routes = createBrowserRouter([
 
             },
         ]
+    },
+    {
+        path: '/dashboard',
+        errorElement: <h3>Page Not found!</h3>,
+        element: <Private></Private>,
+        children: [
+            {
+                path: '/dashboard',
+            }
+        ]
     }
 
 ])

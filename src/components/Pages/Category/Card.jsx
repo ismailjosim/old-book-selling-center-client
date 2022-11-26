@@ -9,26 +9,6 @@ const Card = ({ book, setSelected }) => {
 
 
 
-
-    // const url = "http://localhost:5000/products";
-    // fetch(url, {
-    //     method: "POST",
-    //     headers: {
-    //         'content-type': 'application/json',
-    //     },
-    //     body: JSON.stringify(books)
-    // })
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         const products = data.products.acknowledged;
-    //         if (products) {
-    //             toast.success('Product Added', { autoClose: 1000 })
-    //         }
-    //     })
-
-
-
-
     return (
         <div className="card bg-base-100 shadow-xl">
             <figure className="px-10 pt-10">

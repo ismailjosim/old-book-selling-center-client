@@ -61,11 +61,11 @@ const BookModal = ({ selected, setSelected }) => {
                             </div>
                             <div className='flex gap-5 items-center capitalize'>
                                 <span className=''>Product Name:</span>
-                                <input id="product" type="text" disabled defaultValue={title} className="font-medium bg-transparent" />
+                                <input id="product" type="text" disabled defaultValue={selected?.title} className="font-medium bg-transparent" />
                             </div>
                             <div className='flex items-center capitalize'>
                                 <span className='text-primary font-bold text-2xl'>price: $</span>
-                                <input id="price" type="text" disabled defaultValue={resalePrice} className="bg-transparent text-primary font-bold text-2xl" />
+                                <input id="price" type="text" disabled defaultValue={selected?.resalePrice} className="bg-transparent text-primary font-bold text-2xl" />
                             </div>
                             <div>
                                 <input required name="meeting" type="text" placeholder="Your Location" className="w-full p-3 rounded-md border input-primary" />

@@ -1,12 +1,29 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const BookModal = ({ book }) => {
     const { user } = useContext(AuthContext)
-    const { title, condition, location, originalPrice, photo, postTime, resalePrice, useYears } = book;
+    const { title, resalePrice } = book;
 
     const handleBookModal = event => {
+        event.preventDefault()
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const productName = form.product.value;
+        const price = form.price.value;
+        const meeting = form.meeting.value;
+        const phone = form.number.value;
+        const booking = {
+            name,
+            email,
+            productName,
+            price,
+            meeting,
+            phone
+        }
+        console.log(booking);
+
 
     }
 
@@ -16,41 +33,33 @@ const BookModal = ({ book }) => {
                 <input type="checkbox" id="book-modal" className="modal-toggle" />
                 <div className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
-                        <div className='mb-8'>
-                            <h3 className="font-bold text-lg">{title}</h3>
-                        </div>
-
+                        <h3 className='text-2xl text-center font-semibold border-b-2 pb-3 mb-3'>Products Details</h3>
                         <form onSubmit={handleBookModal} className="space-y-6 ng-untouched ng-pristine ng-valid">
                             <div className='flex gap-5 items-center capitalize'>
-                                <span className=''>Name:</span>
-                                <input id="name" type="text" disabled defaultValue={title} className="font-medium bg-transparent" />
+                                <span className=''>Buyer Name:</span>
+                                <input id="name" type="text" disabled defaultValue={user?.displayName} className="font-medium bg-transparent" />
                             </div>
                             <div className='flex gap-5 items-center capitalize'>
-                                <span className=''>Name:</span>
-                                <input id="name" type="text" disabled defaultValue={title} className="font-medium bg-transparent" />
+                                <span className=''>Buyer Email:</span>
+                                <input id="email" type="text" disabled defaultValue={user?.email} className="font-medium bg-transparent" />
                             </div>
-                            <div className='flex gap-3 items-center capitalize'>
-                                <span>Condition:</span>
-                                <input id="condition" type="text" disabled defaultValue={condition} className="w-1/2 p-3 rounded-md border font-medium" />
+                            <div className='flex gap-5 items-center capitalize'>
+                                <span className=''>Product Name:</span>
+                                <input id="product" type="text" disabled defaultValue={title} className="font-medium bg-transparent" />
                             </div>
-                            <div>
-                                <input name="email" type="email" disabled defaultValue={user?.email} placeholder='Email' className="w-full p-3 rounded-md border input-primary" />
-                            </div>
-                            <div>
-                                <input required name="fullName" type="text" disabled defaultValue={user?.displayName} placeholder="Full Name" className="w-full p-3 rounded-md border input-primary" />
+                            <div className='flex items-center capitalize'>
+                                <span className='text-primary font-bold text-2xl'>price: $</span>
+                                <input id="price" type="text" disabled defaultValue={resalePrice} className="bg-transparent text-primary font-bold text-2xl" />
                             </div>
                             <div>
-                                <input required name="phone" type="text" placeholder='Phone Number' className="w-full p-3 rounded-md border input-primary" />
+                                <input required name="meeting" type="text" placeholder="Your Location" className="w-full p-3 rounded-md border input-primary" />
+                            </div>
+                            <div>
+                                <input required name="number" type="number" placeholder="Your Phone Number" className="w-full p-3 rounded-md border input-primary" />
                             </div>
                             <div className="modal-action">
-                                {user ?
-                                    <>
-                                        <label htmlFor="book-modal" className="btn btn-error text-white">Cancel</label>
-                                        <button type="submit" htmlFor="book-modal" className="btn btn-primary text-white">Submit</button>
-                                    </> :
-                                    <Link to='/login' state={{ from: location }} replace className="btn btn-error text-white">Please Login For Book Appointment</Link>
-
-                                }
+                                <label htmlFor="book-modal" className="btn btn-error text-white">Cancel</label>
+                                <button type="submit" htmlFor="book-modal" className="btn btn-primary text-white">Submit</button>
                             </div>
                         </form>
                     </div>

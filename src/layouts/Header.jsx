@@ -7,7 +7,6 @@ const Header = () => {
     const { user, userLogout } = useContext(AuthContext)
 
 
-
     // handle User Log Out
     const handleUserLogout = () => {
         userLogout().then(result => { }).catch(error => console.log(error.message))
@@ -17,15 +16,18 @@ const Header = () => {
     // navigation items function
     const navigationItems = <>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/about'>about</Link></li>
-        <li><Link to='/services'>Services</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
-        <li><Link to='/contact'>Contact</Link></li>
         {user?.uid ?
             <>
-                <li><p className='uppercase'>{user.displayName}</p></li>
                 <li><Link className='hover:btn-secondary rounded-md hover:text-white' to='/dashboard'>Dashboard</Link></li>
-                <li><button onClick={handleUserLogout} className='hover:btn-secondary btn-primary text-white rounded-md'>Logout</button></li>
+                <li>
+                    <div className="avatar tooltip tooltip-bottom" data-tip={user.displayName}>
+                        <div className="w-10 rounded-full">
+                            <img src={user.photoURL} />
+                        </div>
+                    </div>
+                </li>
+                <li><button onClick={handleUserLogout} className='hover:btn-secondary btn-md btn-primary text-white rounded-md'>Logout</button></li>
             </> :
             <li><Link className='hover:btn-secondary rounded-md hover:text-white' to='/login'>Login</Link></li>
         }
@@ -41,16 +43,15 @@ const Header = () => {
             </label>
             <div className="navbar-start">
                 <Link to='/'>
-                    <img className='' src={logo} alt="logo" />
+                    <img className='w-24' src={logo} alt="logo" />
                 </Link>
             </div>
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal p-0">
+            <div className="navbar-end hidden lg:flex">
+                <ul className="menu menu-horizontal p-0 items-center">
                     {navigationItems}
                 </ul>
             </div>
-            <div className="navbar-end">
-
+            <div className="navbar-end lg:hidden flex">
                 <div className="dropdown dropdown-bottom dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

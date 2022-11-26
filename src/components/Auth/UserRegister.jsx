@@ -10,28 +10,46 @@ const UserRegister = () => {
 
 
 
-
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])");
+
+
+    // section: imageBB api
+    const imageHostKey = "b90f790f1b892df96055c38bc4de40ee"
 
     // TODO: User Login Function
     const onSubmit = data => {
-        // 1. Create New User
-        UserRegister(data.email, data.password)
-            .then(result => {
+        const image = data.image[0];
+        const formData = new FormData()
+        formData.append('image', image)
+        fetch(`https://api.imgbb.com/1/upload?key=${ imageHostKey }`, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    // 1. Create New User
+                    UserRegister(data.email, data.password)
+                        .then(result => {
 
-                // user profile
-                const user = result.user;
-                const profile = {
-                    displayName: data.name,
+                            // user profile
+                            const user = result.user;
+                            // console.log(user);
+                            const profile = {
+                                displayName: data.name,
+                                photoURL: imgData.data.url
+
+                            }
+                            // 2. Update New User
+                            updateUserInfo(profile)
+                                .then(() => {
+                                    // 3. save user email & pass to database
+                                    saveUserInfo(data.email, data.role);
+
+                                })
+                                .catch(error => console.log(error.message))
+                        })
                 }
-                // 2. Update New User
-                updateUserInfo(profile)
-                    .then(() => {
-                        // 3. save user email & pass to database
-                        // saveUserInfo(user.displayName, user.email);
-
-                    })
-                    .catch(error => console.log(error.message))
             })
             .catch(error => {
                 console.log(error.message);
@@ -40,25 +58,22 @@ const UserRegister = () => {
 
 
 
-
-
     // todo 3 : save user info to database function
-    // const saveUserInfo = (name, email) => {
-    //     const user = { name, email }
-    //     fetch('https://doctor-portal-server-tawny.vercel.app/users', {
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(user)
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setNewUserEmail(email);
+    const saveUserInfo = (email, role) => {
+        const user = { email, role }
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+    }
 
-    //         })
-    // }
-    // }
 
 
     return (
@@ -75,9 +90,47 @@ const UserRegister = () => {
                         {
                             required: "Name is Required"
                         })}
-                        className="input input-primary input-bordered w-full" />
-                    {errors.name && <p className='text-error font-medium mt-1'>{errors.name?.message}</p>}
+                        className="input input-primary input-bordered w-full"
+                        placeholder='Your Name'
 
+                    />
+                    {errors.name && <p className='text-error font-medium mt-1'>{errors.name?.message}</p>}
+                </div>
+
+                {/* TODO: input Email */}
+                <div className="form-control w-full">
+
+                    <label className="label">
+                        <span className="label-text">Upload Your Image</span>
+                    </label>
+
+                    <input type="file" {...register("image",
+                        {
+                            required: "image is Required"
+                        })}
+                        className="file-input file-input-bordered file-input-primary w-full" />
+
+                    {errors.image && <p className='text-error font-medium mt-1'>{errors.image?.message}</p>}
+
+                </div>
+
+                {/* TODO: input Email */}
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">select Role</span>
+                    </label>
+                    <select
+                        defaultValue='Buyer'
+                        className="select select-primary w-full"
+                        {...register("role",
+                            {
+                                required: "Name is Required"
+                            })}
+                    >
+                        <option>Buyer</option>
+                        <option>Seller</option>
+                    </select>
+                    {errors.role && <p className='text-error font-medium mt-1'>{errors.role?.message}</p>}
                 </div>
 
                 {/* TODO: input Email */}

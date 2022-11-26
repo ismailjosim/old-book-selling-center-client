@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
-const BookModal = ({ book }) => {
+const BookModal = ({ selected, setSelected }) => {
     const { user } = useContext(AuthContext)
-    const { title, resalePrice } = book;
+    const { title, resalePrice } = selected;
+
 
     const handleBookModal = event => {
         event.preventDefault()
@@ -36,13 +37,10 @@ const BookModal = ({ book }) => {
                 const products = data.products.acknowledged;
                 if (products) {
                     toast.success('Product Added', { autoClose: 1000 })
+                    setSelected(null)
                 }
             })
     }
-
-
-
-
 
 
     return (

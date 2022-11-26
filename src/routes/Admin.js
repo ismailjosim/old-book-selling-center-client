@@ -16,6 +16,7 @@ const Admin = ({ children }) => {
     // if (user && isAdmin) {
     //     return children;
     // }
+
     if (user) {
         return children;
     }

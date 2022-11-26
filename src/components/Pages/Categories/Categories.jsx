@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-
-
 const Categories = () => {
-    const [categories, setCategories] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/categories')
-            .then(res => res.json())
-            .then(data => {
-                const result = data?.categories;
-                setCategories(result);
-            })
-
-    }, [])
-
+    const { data: categories = [], refetch, isLoading } = useQuery({
+        queryKey: ['categories'],
+        queryFn: async () => {
+            const res = await fetch("http://localhost:5000/categories");
+            const data = await res.json();
+            return data?.categories;
+        }
+    })
 
     return (
         <div className='w-11/12 mx-auto mb-40'>
             <div className='mb-20'>
-                <span className='text-3xl font-semibold border-b-4 pb-2 border-primary'>All Categories:</span>
+                <span className='text-3xl font-semibold border-b-4 pb-2 border-primary'>All Categories</span>
             </div>
             <div className='grid lg:grid-cols-6 md:grid-cols-5'>
                 {

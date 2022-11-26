@@ -2,9 +2,29 @@ import React, { useContext } from 'react';
 import BookModal from './BookModal';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
-const Card = ({ book }) => {
+
+const Card = ({ book, setSelected }) => {
     const { title, condition, location, originalPrice, photo, postTime, resalePrice, useYears } = book;
     const { user } = useContext(AuthContext);
+
+
+
+
+    // const url = "http://localhost:5000/products";
+    // fetch(url, {
+    //     method: "POST",
+    //     headers: {
+    //         'content-type': 'application/json',
+    //     },
+    //     body: JSON.stringify(books)
+    // })
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         const products = data.products.acknowledged;
+    //         if (products) {
+    //             toast.success('Product Added', { autoClose: 1000 })
+    //         }
+    //     })
 
 
 
@@ -30,16 +50,14 @@ const Card = ({ book }) => {
 
                 </p>
                 <div className="card-actions">
-                    <label htmlFor="book-modal" className="btn btn-secondary text-white">Book Now</label>
+                    <button>
+                        <label onClick={() => setSelected(book)} htmlFor="book-modal" className="btn btn-secondary text-white">Book Now</label>
+                    </button>
                 </div>
             </div>
-            {book &&
-                <BookModal
-                    book={book}
-                ></BookModal>
-            }
+
         </div>
     );
-};
 
+}
 export default Card;

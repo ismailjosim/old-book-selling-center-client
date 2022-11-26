@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const BookModal = ({ book }) => {
@@ -14,7 +15,7 @@ const BookModal = ({ book }) => {
         const price = form.price.value;
         const meeting = form.meeting.value;
         const phone = form.number.value;
-        const booking = {
+        const books = {
             name,
             email,
             productName,
@@ -22,10 +23,27 @@ const BookModal = ({ book }) => {
             meeting,
             phone
         }
-        console.log(booking);
-
-
+        const url = "http://localhost:5000/products";
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(books)
+        })
+            .then(res => res.json())
+            .then(data => {
+                const products = data.products.acknowledged;
+                if (products) {
+                    toast.success('Product Added', { autoClose: 1000 })
+                }
+            })
     }
+
+
+
+
+
 
     return (
         <div>

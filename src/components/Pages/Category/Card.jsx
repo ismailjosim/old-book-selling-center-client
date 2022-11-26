@@ -4,7 +4,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Card = ({ book }) => {
     const { title, condition, location, originalPrice, photo, postTime, resalePrice, useYears } = book;
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
 
 
 
@@ -33,8 +33,10 @@ const Card = ({ book }) => {
                     <label htmlFor="book-modal" className="btn btn-secondary text-white">Book Now</label>
                 </div>
             </div>
-            {
-                <BookModal book={book}></BookModal>
+            {book &&
+                <BookModal
+                    book={book}
+                ></BookModal>
             }
         </div>
     );

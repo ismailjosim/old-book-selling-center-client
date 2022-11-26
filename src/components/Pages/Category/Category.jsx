@@ -6,6 +6,7 @@ const Category = () => {
     const data = useLoaderData();
 
 
+
     return (
         <div className=''>
             <div className='bg-black text-white py-3 font-medium pl-5'>

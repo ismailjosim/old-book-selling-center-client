@@ -12,11 +12,13 @@ const AuthProvider = ({ children }) => {
 
     // create new using with email and password
     const UserRegister = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     // User login function
     const loginUser = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 

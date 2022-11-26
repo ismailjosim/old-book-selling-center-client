@@ -1,13 +1,17 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
-
+import { toast } from 'react-toastify';
 
 const UserRegister = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { UserRegister, updateUserInfo } = useContext(AuthContext);
 
+    // todo: navigate user when login
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/';
 
 
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])");
@@ -31,6 +35,10 @@ const UserRegister = () => {
                     // TODO: 1. Create New User
                     UserRegister(data.email, data.password)
                         .then(result => {
+
+                            toast.success("User Created Successfully", { autoClose: 1000 });
+                            navigateNow();
+
                             const profile = {
                                 displayName: data.name,
                                 photoURL: imgData.data.url
@@ -68,7 +76,10 @@ const UserRegister = () => {
             })
     }
 
-
+    // setup navigator After Register.
+    const navigateNow = () => {
+        setTimeout(() => { navigate(from, { replace: true }) }, 1);
+    }
 
     return (
         <div className='max-w-sm mx-auto my-28  p-5 rounded-lg shadow-md border border-primary'>

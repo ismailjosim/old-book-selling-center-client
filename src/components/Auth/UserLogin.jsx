@@ -12,7 +12,7 @@ const UserLogin = () => {
     // todo: navigate user when login
     const navigate = useNavigate()
     const location = useLocation()
-    const from = location?.state?.from.pathname || '/';
+    const from = location.state?.from?.pathname || '/';
 
 
 
@@ -37,7 +37,8 @@ const UserLogin = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                // setLoginUserEmail(user.email)
+                // setLoginUserEmail(user.email);
+                navigate(from, { replace: true })
 
             })
             .catch(error => {

@@ -23,7 +23,7 @@ const Header = () => {
                 <li>
                     <div className="avatar tooltip tooltip-bottom" data-tip={user.displayName}>
                         <div className="w-10 rounded-full">
-                            <img src={user.photoURL} />
+                            <img alt={user.displayName} src={user.photoURL} />
                         </div>
                     </div>
                 </li>

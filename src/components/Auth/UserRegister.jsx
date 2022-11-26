@@ -28,24 +28,18 @@ const UserRegister = () => {
             .then(res => res.json())
             .then(imgData => {
                 if (imgData.success) {
-                    // 1. Create New User
+                    // TODO: 1. Create New User
                     UserRegister(data.email, data.password)
                         .then(result => {
-
-                            // user profile
-                            const user = result.user;
-                            // console.log(user);
                             const profile = {
                                 displayName: data.name,
                                 photoURL: imgData.data.url
-
                             }
-                            // 2. Update New User
+                            // TODO: 2. Update New User
                             updateUserInfo(profile)
                                 .then(() => {
-                                    // 3. save user email & pass to database
+                                    // TODO: 3. save user email & pass to database
                                     saveUserInfo(data.email, data.role);
-
                                 })
                                 .catch(error => console.log(error.message))
                         })
@@ -58,7 +52,7 @@ const UserRegister = () => {
 
 
 
-    // todo 3 : save user info to database function
+    // TODO: 3 : save user info to database function
     const saveUserInfo = (email, role) => {
         const user = { email, role }
         fetch('http://localhost:5000/users', {

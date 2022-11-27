@@ -17,20 +17,23 @@ const AddProducts = () => {
     // })
 
     // section: imageBB api
-    // const imageHostKey = "";
+    const imageHostKey = "119e7cb713a0b2cf2cc52e7f70755b58";
 
     const handleAddProduct = data => {
         const image = data.image[0];
         const formData = new FormData();
+        formData.append('image', image);
 
-        formData.append('productImg', image);
-        fetch(`https://api.imgbb.com/1/upload?key=8f6c4dd1b013bd1ec7b89faa95945476`, {
+        // upload Product Image
+        fetch(`https://api.imgbb.com/1/upload?key=${ imageHostKey }`, {
             method: "POST",
             body: formData
         })
             .then(res => res.json())
             .then(imgData => {
                 if (imgData.success) {
+
+                    // get all product data
                     const productDetails = {
                         title: data.name,
                         condition: data.condition,
@@ -42,22 +45,9 @@ const AddProducts = () => {
                         categories_id: parseInt(data.category),
                         photo: imgData.data.url
                     }
-                    console.log(productDetails);
-
                 }
             })
 
-
-
-
-
-
-
-
-        // fetch(`https://api.imgbb.com/1/upload?key=${ imageHostKey }`, {
-        //     method: "POST",
-        //     body: formData
-        // })
 
     }
 

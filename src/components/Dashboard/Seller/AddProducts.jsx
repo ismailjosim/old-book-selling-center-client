@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import { toast } from 'react-toastify';
 
 const AddProducts = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -24,7 +25,7 @@ const AddProducts = () => {
         const formData = new FormData();
         formData.append('image', image);
 
-        // upload Product Image
+        // TODO: upload Product Image
         fetch(`https://api.imgbb.com/1/upload?key=${ imageHostKey }`, {
             method: "POST",
             body: formData
@@ -33,7 +34,7 @@ const AddProducts = () => {
             .then(imgData => {
                 if (imgData.success) {
 
-                    // get all product data
+                    // TODO: get all product data
                     const productDetails = {
                         title: data.name,
                         condition: data.condition,
@@ -45,6 +46,20 @@ const AddProducts = () => {
                         categories_id: parseInt(data.category),
                         photo: imgData.data.url
                     }
+                    fetch('http://localhost:5000/products', {
+                        method: "POST",
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(productDetails)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.products.acknowledged) {
+                                toast.success('Product Added SuccessFully')
+                                console.log(result);
+                            }
+                        })
                 }
             })
 

@@ -23,7 +23,7 @@ const Categories = () => {
                     categories?.map(category => {
                         return (
                             <div key={category._id} className="flex flex-col justify-center items-center">
-                                <Link to={`/category/${ category.categories_id }`}
+                                <Link to={`/product/${ category.categories_id }`}
                                 >
                                     <div className="bg-slate-200 w-40 h-40 flex justify-center items-center rounded-full">
                                         <img alt='' className='p-10' src={category.img} />

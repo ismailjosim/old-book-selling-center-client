@@ -37,7 +37,7 @@ const AllBuyer = () => {
                             return (
                                 <tr key={user._id}>
                                     <th>{idx + 1}</th>
-                                    <td>Cy Ganderton</td>
+                                    <td>{user?.username}</td>
                                     <td>{user.email}</td>
                                     <td>{user.status}</td>
                                 </tr>

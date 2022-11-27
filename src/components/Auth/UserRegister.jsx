@@ -52,7 +52,7 @@ const UserRegister = () => {
                     UserRegister(data.email, data.password)
                         .then(result => {
                             toast.success("User Created Successfully", { autoClose: 1000 });
-
+                            console.log(result);
                             const profile = {
                                 displayName: data.name,
                                 photoURL: imgData.data.url,
@@ -61,7 +61,7 @@ const UserRegister = () => {
                             updateUserInfo(profile)
                                 .then(() => {
                                     // TODO: 3. save user email & pass to database
-                                    saveUserInfo(data.email, data.role);
+                                    saveUserInfo(data.email, data.role, data.name);
                                     navigateNow()
                                 })
                                 .catch(error => console.log(error.message))
@@ -76,12 +76,14 @@ const UserRegister = () => {
 
 
     // TODO: 3 : save user info to database function
-    const saveUserInfo = (email, role) => {
+    const saveUserInfo = (email, role, username) => {
         const user = {
             email,
             role,
+            username,
             status: 'Not verified'
         }
+
 
         fetch('http://localhost:5000/users', {
             method: "POST",

@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Categories = () => {
 
-    const { data: categories = [], refetch, isLoading } = useQuery({
+    const { data: categories = [] } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
             const res = await fetch("http://localhost:5000/categories");

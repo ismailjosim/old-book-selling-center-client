@@ -4,8 +4,6 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 
 const BookModal = ({ selected, setSelected }) => {
     const { user } = useContext(AuthContext)
-    // const { title, resalePrice } = selected;
-
 
     const handleBookModal = event => {
         event.preventDefault()
@@ -65,7 +63,7 @@ const BookModal = ({ selected, setSelected }) => {
                             </div>
                             <div className='flex items-center capitalize'>
                                 <span className='text-primary font-bold text-2xl'>price: $</span>
-                                <input id="price" type="text" disabled defaultValue={selected?.resalePrice} className="bg-transparent text-primary font-bold text-2xl" />
+                                <input id="price" type="text" disabled defaultValue={selected?.resellPrice} className="bg-transparent text-primary font-bold text-2xl" />
                             </div>
                             <div>
                                 <input required name="meeting" type="text" placeholder="Your Location" className="w-full p-3 rounded-md border input-primary" />

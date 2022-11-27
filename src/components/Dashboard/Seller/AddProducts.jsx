@@ -39,6 +39,7 @@ const AddProducts = () => {
                         resellPrice: data.resellPrice,
                         usedYear: data.year,
                         sellerName: user.displayName,
+                        email: user.email,
                         categories_id: parseInt(data.category),
                         photo: imgData.data.url,
                         postTime: time

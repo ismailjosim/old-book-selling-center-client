@@ -10,6 +10,7 @@ import MyProducts from '../components/Dashboard/Seller/MyProducts';
 import Blog from '../components/Pages/Blog/Blog';
 import Category from '../components/Pages/Category/Category';
 import Home from '../components/Pages/Home/Home';
+import ErrorPage from '../components/Shared/ErrorPage';
 import DashboardLayout from '../layouts/DashboardLayout';
 import Main from '../layouts/Main';
 import Private from './Private';
@@ -21,7 +22,7 @@ const routes = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
-        errorElement: <h3>Page Not found!</h3>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: '/',
@@ -53,7 +54,7 @@ const routes = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        errorElement: <h3>Page Not found!</h3>,
+        errorElement: <ErrorPage />,
         element: <Private><DashboardLayout /></Private>,
         children: [
             {

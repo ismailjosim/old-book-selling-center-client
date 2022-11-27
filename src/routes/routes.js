@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import UserLogin from '../components/Auth/UserLogin';
 import UserRegister from '../components/Auth/UserRegister';
+import Report from '../components/Dashboard/Admin/Report/Report';
 import Sellers from '../components/Dashboard/Admin/Sellers/Sellers';
 import MyOrder from '../components/Dashboard/Buyer/MyOrder';
-import Dashboard from '../components/Dashboard/Dashboard';
 import Blog from '../components/Pages/Blog/Blog';
 import Category from '../components/Pages/Category/Category';
 import Home from '../components/Pages/Home/Home';
@@ -60,6 +60,18 @@ const routes = createBrowserRouter([
             {
                 path: '/dashboard/orders',
                 element: <MyOrder />
+            },
+            {
+                path: '/dashboard/reported',
+                element: <Report />
+            },
+            {
+                path: '/dashboard/sellers',
+                element: <Report />
+            },
+            {
+                path: '/dashboard/reported',
+                element: <Report />
             }
         ]
     }

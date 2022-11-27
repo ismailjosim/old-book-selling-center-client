@@ -87,4 +87,3 @@ const BookModal = ({ selected, setSelected }) => {
 
 export default BookModal;
 
-// <Link to='/login' state={{ from: location }} replace className="btn btn-error text-white">Please Login For Book Appointment</Link>

@@ -11,7 +11,7 @@ const Category = () => {
         <div className=''>
             <div className='bg-black text-white py-3 font-medium pl-5'>
             </div>
-            <div className='w-11/12 mx-auto grid lg:grid-cols-3 gap-5 md:grid-cols-2 grid-cols-1'>
+            <div className='w-11/12 mx-auto grid lg:grid-cols-3 gap-5 md:grid-cols-2 grid-cols-1 my-10'>
                 {
                     data?.books.map(book => <Card
                         key={book._id}

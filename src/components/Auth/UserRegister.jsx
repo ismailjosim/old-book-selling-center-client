@@ -1,24 +1,42 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { toast } from 'react-toastify';
+import useToken from '../../hooks/useToken';
 
 const UserRegister = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { UserRegister, updateUserInfo } = useContext(AuthContext);
+    const [newUserEmail, setNewUserEmail] = useState('')
 
     // todo: navigate user when login
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || '/';
 
+    // use token custom hooks
+    const [token] = useToken(newUserEmail);
+
+
+    // setup navigator After Register.
+    const navigateNow = () => {
+        setTimeout(() => { navigate(from, { replace: true }) }, 1);
+    }
+
+
+    // navigate user if token found
+    if (token) {
+        navigateNow()
+    }
+
+
 
     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])");
 
 
     // section: imageBB api
-    const imageHostKey = "b90f790f1b892df96055c38bc4de40ee"
+    const imageHostKey = "8f6c4dd1b013bd1ec7b89faa95945476";
 
     // TODO: User Login Function
     const onSubmit = data => {
@@ -35,14 +53,13 @@ const UserRegister = () => {
                     // TODO: 1. Create New User
                     UserRegister(data.email, data.password)
                         .then(result => {
-
                             toast.success("User Created Successfully", { autoClose: 1000 });
-                            navigateNow();
 
                             const profile = {
                                 displayName: data.name,
                                 photoURL: imgData.data.url
                             }
+
                             // TODO: 2. Update New User
                             updateUserInfo(profile)
                                 .then(() => {
@@ -72,14 +89,11 @@ const UserRegister = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                setNewUserEmail(email)
             })
     }
 
-    // setup navigator After Register.
-    const navigateNow = () => {
-        setTimeout(() => { navigate(from, { replace: true }) }, 1);
-    }
+
 
     return (
         <div className='max-w-sm mx-auto my-28  p-5 rounded-lg shadow-md border border-primary'>
@@ -178,15 +192,12 @@ const UserRegister = () => {
                 <div className='mt-3 mb-5 text-center text-sm'>
                     <span>Already have account?</span> <Link className='text-accent hover:text-primary' to='/login'>Login</Link>
                 </div>
-
                 <div className="divider">OR</div>
-
-                {/* TODO: Form Google login button */}
-                <div className="form-control w-full my-5">
-                    <button className="btn btn-outline hover:text-white">CONTINUE WITH GOOGLE</button>
-                </div>
-
             </form>
+            {/* TODO: Form Google login button */}
+            <div className="form-control w-full my-5">
+                <button className="btn btn-outline hover:text-white">CONTINUE WITH GOOGLE</button>
+            </div>
         </div>
     );
 };

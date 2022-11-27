@@ -1,9 +1,203 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const AddProducts = () => {
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { user } = useContext(AuthContext);
+
+
+
+    // const { data } = useQuery({
+    //     queryKey: ['product'],
+    //     queryFn: async () => {
+    //         const res = await fetch('input');
+    //     }
+    // })
+
+    // section: imageBB api
+    // const imageHostKey = "";
+
+    const handleAddProduct = data => {
+        const image = data.image[0];
+        const formData = new FormData();
+
+        formData.append('productImg', image);
+        fetch(`https://api.imgbb.com/1/upload?key=8f6c4dd1b013bd1ec7b89faa95945476`, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    const productDetails = {
+                        title: data.name,
+                        condition: data.condition,
+                        location: data.location,
+                        phone: data.phone,
+                        price: data.price,
+                        usedYear: data.year,
+                        buyerName: user.displayName,
+                        categories_id: parseInt(data.category),
+                        photo: imgData.data.url
+                    }
+                    console.log(productDetails);
+
+                }
+            })
+
+
+
+
+
+
+
+
+        // fetch(`https://api.imgbb.com/1/upload?key=${ imageHostKey }`, {
+        //     method: "POST",
+        //     body: formData
+        // })
+
+    }
+
     return (
         <div>
-            Add Products Here
+            <h2 className='text-center text-2xl font-semibold'>Add Products Here</h2>
+            <div className='rounded-lg bg-white mt-10'>
+                <form onSubmit={handleSubmit(handleAddProduct)} className="p-10">
+                    <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5'>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" {...register("name",
+                                {
+                                    required: "Name is Required"
+                                })}
+                                placeholder="Product Name"
+                                className="input input-primary input-bordered w-full" />
+                            {errors.name && <p className='text-error font-medium mt-1'>{errors.name?.message}</p>}
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Price</span>
+                            </label>
+                            <input type="text" {...register("price",
+                                {
+                                    required: "Name is Required"
+                                })}
+                                placeholder="Product Price"
+                                className="input input-primary input-bordered w-full" />
+                            {errors.price && <p className='text-error font-medium mt-1'>{errors.price?.message}</p>}
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">location</span>
+                            </label>
+                            <input type="text" {...register("location",
+                                {
+                                    required: "location is Required"
+                                })}
+                                className="input input-primary input-bordered w-full"
+                                placeholder='Enter Location'
+                            />
+                            {errors.location && <p className='text-error font-medium mt-1'>{errors.location?.message}</p>}
+                        </div>
+
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Year of Use</span>
+                            </label>
+                            <input type="number" {...register("year",
+                                {
+                                    required: "year is Required"
+                                })}
+                                className="input input-primary input-bordered w-full"
+                                placeholder='Enter Used Year'
+
+                            />
+                            {errors.year && <p className='text-error font-medium mt-1'>{errors.year?.message}</p>}
+                        </div>
+
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text">Condition</span>
+                            </label>
+                            <select
+                                className="select select-primary w-full"
+                                {...register("condition")}
+                            >
+                                <option>Used</option>
+                                <option>New</option>
+                            </select>
+
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Phone Number</span>
+                            </label>
+                            <input type="number" {...register("phone",
+                                {
+                                    required: "phone is Required"
+                                })}
+                                className="input input-primary input-bordered w-full"
+                                placeholder='Enter Your phone'
+
+                            />
+                            {errors?.phone && <p className='text-error font-medium mt-1'>{errors.phone?.message}</p>}
+                        </div>
+                        <div className="form-control w-full">
+                            <label className="label">
+                                <span className="label-text">Product Category</span>
+                            </label>
+                            <select
+                                className="select select-primary w-full"
+                                {...register("category")}
+                            >
+                                <option value="101">academic books</option>
+                                <option value="102">children books</option>
+                                <option value="103">comic books</option>
+                                <option value="104">english novels</option>
+                                <option value="105">fashion books</option>
+                                <option value="106">history books</option>
+                            </select>
+
+                        </div>
+                        <div className="form-control w-full">
+
+                            <label className="label">
+                                <span className="label-text">Buyer Name</span>
+                            </label>
+
+                            <input type="text" {...register("buyerName")}
+                                className="input input-primary input-bordered w-full"
+                                defaultValue={user?.displayName}
+                                disabled
+                            />
+                        </div>
+
+                        <div className="form-control w-full">
+
+                            <label className="label">
+                                <span className="label-text">Upload Product Image</span>
+                            </label>
+
+                            <input type="file" {...register("image",
+                                {
+                                    required: "image is Required"
+                                })}
+                                className="file-input file-input-bordered file-input-outline w-full" />
+
+                            {errors.image && <p className='text-error font-medium mt-1'>{errors.image?.message}</p>}
+
+                        </div>
+                    </div>
+                    <div className="form-control inline-block mt-5">
+                        <button type="submit" className="btn btn-secondary text-white font-normal">Add A Product</button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

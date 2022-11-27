@@ -4,6 +4,7 @@ import UserRegister from '../components/Auth/UserRegister';
 import Report from '../components/Dashboard/Admin/Report/Report';
 import Sellers from '../components/Dashboard/Admin/Sellers/Sellers';
 import MyOrder from '../components/Dashboard/Buyer/MyOrder';
+import AddProducts from '../components/Dashboard/Seller/AddProducts';
 import Blog from '../components/Pages/Blog/Blog';
 import Category from '../components/Pages/Category/Category';
 import Home from '../components/Pages/Home/Home';
@@ -60,6 +61,10 @@ const routes = createBrowserRouter([
             {
                 path: '/dashboard/orders',
                 element: <MyOrder />
+            },
+            {
+                path: '/dashboard/addproduct',
+                element: <AddProducts />
             },
             {
                 path: '/dashboard/reported',

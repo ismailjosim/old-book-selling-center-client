@@ -23,3 +23,5 @@
 * create dashboard Route and create Dashboard items
 * implement User login and Sign up page.
 * Check firebase Deployment and create live site.
+* add Blog page and add 4 questions.
+* add $04 Page if there is no page found.

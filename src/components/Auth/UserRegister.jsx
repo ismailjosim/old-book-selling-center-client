@@ -16,19 +16,16 @@ const UserRegister = () => {
     const from = location.state?.from?.pathname || '/';
 
     // use token custom hooks
-    const [token] = useToken(newUserEmail);
+    // const [token] = useToken(newUserEmail);
 
 
-    // setup navigator After Register.
-    const navigateNow = () => {
-        setTimeout(() => { navigate(from, { replace: true }) }, 1);
-    }
+
 
 
     // navigate user if token found
-    if (token) {
-        navigateNow()
-    }
+    // if (token) {
+    //     navigateNow()
+    // }
 
 
 
@@ -58,14 +55,14 @@ const UserRegister = () => {
 
                             const profile = {
                                 displayName: data.name,
-                                photoURL: imgData.data.url
+                                photoURL: imgData.data.url,
                             }
-
                             // TODO: 2. Update New User
                             updateUserInfo(profile)
                                 .then(() => {
                                     // TODO: 3. save user email & pass to database
                                     saveUserInfo(data.email, data.role);
+                                    navigateNow()
                                 })
                                 .catch(error => console.log(error.message))
                         })
@@ -80,7 +77,12 @@ const UserRegister = () => {
 
     // TODO: 3 : save user info to database function
     const saveUserInfo = (email, role) => {
-        const user = { email, role }
+        const user = {
+            email,
+            role,
+            status: 'Not verified'
+        }
+
         fetch('http://localhost:5000/users', {
             method: "POST",
             headers: {
@@ -94,7 +96,10 @@ const UserRegister = () => {
             })
     }
 
-
+    // setup navigator After Register.
+    const navigateNow = () => {
+        setTimeout(() => { navigate(from, { replace: true }) }, 1);
+    }
 
     return (
         <div className='max-w-sm mx-auto my-28  p-5 rounded-lg shadow-md border border-primary'>

@@ -16,7 +16,6 @@ const MyOrder = () => {
         }
     })
 
-    console.log(data)
 
     return (
         <div>

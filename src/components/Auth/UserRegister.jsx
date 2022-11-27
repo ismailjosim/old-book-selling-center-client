@@ -33,7 +33,6 @@ const UserRegister = () => {
 
 
     // section: imageBB api
-    // const imageHostKey = "8f6c4dd1b013bd1ec7b89faa95945476";
     const imageHostKey = "119e7cb713a0b2cf2cc52e7f70755b58";
 
     // TODO: User Login Function
@@ -52,7 +51,6 @@ const UserRegister = () => {
                     UserRegister(data.email, data.password)
                         .then(result => {
                             toast.success("User Created Successfully", { autoClose: 1000 });
-                            console.log(result);
                             const profile = {
                                 displayName: data.name,
                                 photoURL: imgData.data.url,

@@ -3,19 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-toastify';
+import { format } from 'date-fns';
 
 const AddProducts = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { user } = useContext(AuthContext);
+    const date = new Date();
+    const time = format(date, 'PP');
 
-
-
-    // const { data } = useQuery({
-    //     queryKey: ['product'],
-    //     queryFn: async () => {
-    //         const res = await fetch('input');
-    //     }
-    // })
 
     // section: imageBB api
     const imageHostKey = "119e7cb713a0b2cf2cc52e7f70755b58";
@@ -40,11 +35,13 @@ const AddProducts = () => {
                         condition: data.condition,
                         location: data.location,
                         phone: data.phone,
-                        price: data.price,
+                        originalPrice: data.originalPrice,
+                        resellPrice: data.resellPrice,
                         usedYear: data.year,
-                        buyerName: user.displayName,
+                        sellerName: user.displayName,
                         categories_id: parseInt(data.category),
-                        photo: imgData.data.url
+                        photo: imgData.data.url,
+                        postTime: time
                     }
                     fetch('http://localhost:5000/products', {
                         method: "POST",
@@ -56,8 +53,9 @@ const AddProducts = () => {
                         .then(res => res.json())
                         .then(result => {
                             if (result.products.acknowledged) {
-                                toast.success('Product Added SuccessFully')
+                                toast.success('Product Added SuccessFully', { autoClose: 1000 })
                                 console.log(result);
+
                             }
                         })
                 }
@@ -86,15 +84,27 @@ const AddProducts = () => {
                         </div>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Price</span>
+                                <span className="label-text">Original Price</span>
                             </label>
-                            <input type="text" {...register("price",
+                            <input type="text" {...register("originalPrice",
                                 {
                                     required: "Name is Required"
                                 })}
-                                placeholder="Product Price"
+                                placeholder="Original Price"
                                 className="input input-primary input-bordered w-full" />
-                            {errors.price && <p className='text-error font-medium mt-1'>{errors.price?.message}</p>}
+                            {errors.originalPrice && <p className='text-error font-medium mt-1'>{errors.originalPrice?.message}</p>}
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Resell Price</span>
+                            </label>
+                            <input type="text" {...register("resellPrice",
+                                {
+                                    required: "Name is Required"
+                                })}
+                                placeholder="Resell Price"
+                                className="input input-primary input-bordered w-full" />
+                            {errors.resellPrice && <p className='text-error font-medium mt-1'>{errors.resellPrice?.message}</p>}
                         </div>
                         <div className="form-control">
                             <label className="label">

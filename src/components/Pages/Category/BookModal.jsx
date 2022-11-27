@@ -4,7 +4,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 
 const BookModal = ({ selected, setSelected }) => {
     const { user } = useContext(AuthContext)
-    const { title, resalePrice } = selected;
+    // const { title, resalePrice } = selected;
 
 
     const handleBookModal = event => {
@@ -24,7 +24,7 @@ const BookModal = ({ selected, setSelected }) => {
             meeting,
             phone
         }
-        const url = "http://localhost:5000/products";
+        const url = "http://localhost:5000/orders";
         fetch(url, {
             method: "POST",
             headers: {
@@ -34,8 +34,8 @@ const BookModal = ({ selected, setSelected }) => {
         })
             .then(res => res.json())
             .then(data => {
-                const products = data.products.acknowledged;
-                if (products) {
+                const orders = data.orders.acknowledged;
+                if (orders) {
                     toast.success('Product Added', { autoClose: 1000 })
                     setSelected(null)
                 }

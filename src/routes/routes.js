@@ -16,6 +16,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import Main from '../layouts/Main';
 import Admin from './Admin';
 import Private from './Private';
+import Seller from './Seller';
 
 
 
@@ -64,7 +65,6 @@ const routes = createBrowserRouter([
                 element: <Buyers />
             },
 
-
             {
                 path: '/dashboard/sellers',
                 element: <Admin><Sellers /></Admin>
@@ -77,6 +77,12 @@ const routes = createBrowserRouter([
                 path: '/dashboard/reported',
                 element: <Admin><Report /></Admin>
             },
+
+            // All Seller routes
+            {
+                path: '/dashboard/addProduct',
+                element: <Seller><AddProducts /></Seller>
+            }
 
         ]
     }

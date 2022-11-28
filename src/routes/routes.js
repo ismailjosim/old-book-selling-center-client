@@ -14,6 +14,7 @@ import Home from '../components/Pages/Home/Home';
 import ErrorPage from '../components/Shared/ErrorPage';
 import DashboardLayout from '../layouts/DashboardLayout';
 import Main from '../layouts/Main';
+import Admin from './Admin';
 import Private from './Private';
 
 
@@ -62,30 +63,21 @@ const routes = createBrowserRouter([
                 path: '/dashboard',
                 element: <Buyers />
             },
-            {
-                path: '/dashboard/orders',
-                element: <MyOrder />
-            },
-            {
-                path: '/dashboard/addproduct',
-                element: <AddProducts />
-            },
-            {
-                path: '/dashboard/myproducts',
-                element: <MyProducts />
-            },
+
+
             {
                 path: '/dashboard/sellers',
-                element: <Sellers />
+                element: <Admin><Sellers /></Admin>
             },
             {
                 path: '/dashboard/allBuyers',
-                element: <AllBuyer />
+                element: <Admin><Buyers /></Admin>
             },
             {
                 path: '/dashboard/reported',
-                element: <Report />
-            }
+                element: <Admin><Report /></Admin>
+            },
+
         ]
     }
 

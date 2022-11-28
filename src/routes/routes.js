@@ -5,6 +5,7 @@ import Buyers from '../components/Dashboard/Admin/Buyers/Buyers';
 import Report from '../components/Dashboard/Admin/Report/Report';
 import Sellers from '../components/Dashboard/Admin/Sellers/Sellers';
 import MyOrder from '../components/Dashboard/Buyer/MyOrder';
+import MyWishList from '../components/Dashboard/Buyer/MyWishList';
 import AddProducts from '../components/Dashboard/Seller/AddProducts';
 import AllBuyer from '../components/Dashboard/Seller/AllBuyer';
 import MyProducts from '../components/Dashboard/Seller/MyProducts';
@@ -15,6 +16,7 @@ import ErrorPage from '../components/Shared/ErrorPage';
 import DashboardLayout from '../layouts/DashboardLayout';
 import Main from '../layouts/Main';
 import Admin from './Admin';
+import BuyerRoute from './BuyerRoute';
 import Private from './Private';
 import Seller from './Seller';
 
@@ -82,6 +84,24 @@ const routes = createBrowserRouter([
             {
                 path: '/dashboard/addProduct',
                 element: <Seller><AddProducts /></Seller>
+            },
+            {
+                path: '/dashboard/myproducts',
+                element: <Seller><MyProducts /></Seller>
+            },
+            {
+                path: '/dashboard/mybuyer',
+                element: <Seller><AllBuyer /></Seller>
+            },
+
+            // All Seller routes
+            {
+                path: '/dashboard/myorder',
+                element: <BuyerRoute><MyOrder /></BuyerRoute>
+            },
+            {
+                path: '/dashboard/mywishlist',
+                element: <BuyerRoute><MyWishList /></BuyerRoute>
             }
 
         ]

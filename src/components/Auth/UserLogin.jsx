@@ -2,12 +2,13 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const UserLogin = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { loginUser, user } = useContext(AuthContext);
+    const { loginUser, user, googleProviderLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
-    console.log(user);
+
 
     // todo: navigate user when login
     const navigate = useNavigate()
@@ -36,7 +37,6 @@ const UserLogin = () => {
         loginUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
                 // setLoginUserEmail(user.email);
                 navigate(from, { replace: true })
 
@@ -45,6 +45,29 @@ const UserLogin = () => {
                 console.log(error.message);
                 setLoginError(error.message)
             })
+    }
+
+
+    // handle Google Login
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleLogin = () => {
+        googleProviderLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                // console.log(user);
+                navigateNow();
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }
+
+
+    // setup navigator After Register.
+    const navigateNow = () => {
+        setTimeout(() => { navigate(from, { replace: true }) }, 1);
     }
 
 
@@ -96,11 +119,10 @@ const UserLogin = () => {
                 <div className="divider">OR</div>
 
                 {/* TODO: Form Google login button */}
-
-                <div className="form-control w-full my-5">
-                    <button className="btn btn-outline hover:text-white">CONTINUE WITH GOOGLE</button>
-                </div>
             </form>
+            <div className="form-control w-full my-5">
+                <button onClick={handleGoogleLogin} className="btn btn-outline hover:text-white">CONTINUE WITH GOOGLE</button>
+            </div>
         </div>
     );
 };

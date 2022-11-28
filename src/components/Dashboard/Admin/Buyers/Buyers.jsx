@@ -15,6 +15,13 @@ const Buyers = () => {
             }
         }
     })
+
+    if (isLoading) {
+        return <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-primary"></div>
+    }
+
+
+
     return (
 
         <div className="overflow-x-auto">
@@ -34,9 +41,9 @@ const Buyers = () => {
                             return (
                                 <tr key={user._id}>
                                     <th>{idx + 1}</th>
-                                    <td>Cy Ganderton</td>
+                                    <td className='capitalize'>{user?.username}</td>
                                     <td>{user.email}</td>
-                                    <td>{user.role}</td>
+                                    <td>{user?.role}</td>
                                     <td>{user.status}</td>
                                 </tr>
                             )

@@ -4,10 +4,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { toast } from 'react-toastify';
 import useToken from '../../hooks/useToken';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const UserRegister = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { UserRegister, updateUserInfo } = useContext(AuthContext);
+    const { UserRegister, updateUserInfo, googleProviderLogin } = useContext(AuthContext);
     const [newUserEmail, setNewUserEmail] = useState('')
 
     // todo: navigate user when login
@@ -73,6 +74,25 @@ const UserRegister = () => {
 
 
 
+
+    // TODO: handle Google Login
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleLogin = () => {
+        googleProviderLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                // console.log(user);
+                navigateNow();
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }
+
+
+
     // TODO: 3 : save user info to database function
     const saveUserInfo = (email, role, username) => {
         const user = {
@@ -95,6 +115,12 @@ const UserRegister = () => {
                 setNewUserEmail(email)
             })
     }
+
+
+
+
+
+
 
     // setup navigator After Register.
     const navigateNow = () => {
@@ -202,7 +228,7 @@ const UserRegister = () => {
             </form>
             {/* TODO: Form Google login button */}
             <div className="form-control w-full my-5">
-                <button className="btn btn-outline hover:text-white">CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleLogin} className="btn btn-outline hover:text-white">CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );

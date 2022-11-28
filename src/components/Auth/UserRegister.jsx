@@ -20,12 +20,10 @@ const UserRegister = () => {
     const [newUserEmail, setNewUserEmail] = useState('')
     const [token] = useToken(newUserEmail);
 
-
     // setup navigator After Register.
     const navigateNow = () => {
         setTimeout(() => { navigate(from, { replace: true }) }, 1);
     }
-
 
 
     // navigate user if token found
@@ -86,7 +84,6 @@ const UserRegister = () => {
             .then(result => {
                 const user = result.user;
                 setNewUserEmail(user?.email)
-                navigateNow();
 
             })
             .catch(err => {

@@ -36,9 +36,12 @@ const AllBuyer = () => {
         return <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-primary"></div>
     }
 
-    const handleDelete = user => {
-        fetch(`http://localhost:5000/user/${ user._id }`, {
+    const handleDelete = id => {
+        fetch(`http://localhost:5000/user/${ id }`, {
             method: "DELETE",
+            headers: {
+                authorization: `bearer ${ localStorage.getItem('accessToken') }`
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -65,6 +68,9 @@ const AllBuyer = () => {
             if (result) {
                 fetch(`http://localhost:5000/users/verify/${ id }`, {
                     method: "PATCH",
+                    headers: {
+                        authorization: `bearer ${ localStorage.getItem('accessToken') }`
+                    }
                 })
                     .then(res => res.json())
                     .then(data => {
@@ -132,8 +138,6 @@ const AllBuyer = () => {
                                                     </svg>
                                                     <span className="uppercase">{user.status}</span>
                                                 </div>
-
-
                                         }
 
                                     </td>

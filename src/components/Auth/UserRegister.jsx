@@ -9,7 +9,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 const UserRegister = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { UserRegister, updateUserInfo, googleProviderLogin } = useContext(AuthContext);
-    const [newUserEmail, setNewUserEmail] = useState('')
+
 
     // todo: navigate user when login
     const navigate = useNavigate()
@@ -17,16 +17,21 @@ const UserRegister = () => {
     const from = location.state?.from?.pathname || '/';
 
     // use token custom hooks
-    // const [token] = useToken(newUserEmail);
+    const [newUserEmail, setNewUserEmail] = useState('')
+    const [token] = useToken(newUserEmail);
 
 
+    // setup navigator After Register.
+    const navigateNow = () => {
+        setTimeout(() => { navigate(from, { replace: true }) }, 1);
+    }
 
 
 
     // navigate user if token found
-    // if (token) {
-    //     navigateNow()
-    // }
+    if (token) {
+        navigateNow()
+    }
 
 
 
@@ -61,7 +66,6 @@ const UserRegister = () => {
                                 .then(() => {
                                     // TODO: 3. save user email & pass to database
                                     saveUserInfo(data.email, data.role, data.name);
-                                    navigateNow()
                                 })
                                 .catch(error => console.log(error.message))
                         })
@@ -81,7 +85,7 @@ const UserRegister = () => {
         googleProviderLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                // console.log(user);
+                setNewUserEmail(user?.email)
                 navigateNow();
 
             })
@@ -94,6 +98,9 @@ const UserRegister = () => {
 
 
     // TODO: 3 : save user info to database function
+
+
+
     const saveUserInfo = (email, role, username) => {
         const user = {
             email,
@@ -101,8 +108,6 @@ const UserRegister = () => {
             username,
             status: 'Not verified'
         }
-
-
         fetch('http://localhost:5000/users', {
             method: "POST",
             headers: {
@@ -119,13 +124,6 @@ const UserRegister = () => {
 
 
 
-
-
-
-    // setup navigator After Register.
-    const navigateNow = () => {
-        setTimeout(() => { navigate(from, { replace: true }) }, 1);
-    }
 
     return (
         <div className='max-w-sm mx-auto my-28  p-5 rounded-lg shadow-md border border-primary'>

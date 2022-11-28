@@ -3,6 +3,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { GoogleAuthProvider } from 'firebase/auth';
+import useToken from '../../hooks/useToken';
 
 const UserLogin = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -15,17 +16,21 @@ const UserLogin = () => {
     const location = useLocation()
     const from = location.state?.from?.pathname || '/';
 
+    // setup navigator After Register.
+    const navigateNow = () => {
+        setTimeout(() => { navigate(from, { replace: true }) }, 1);
+    }
 
 
     // todo: set user email for jwt verification
     const [loginUserEmail, setLoginUserEmail] = useState('')
-    // const [token] = useToken(loginUserEmail);
+    const [token] = useToken(loginUserEmail);
 
 
     // footer: navigate when we get token
-    // if (token) {
-    //     navigate(from, { replace: true })
-    // }
+    if (token) {
+        navigateNow()
+    }
 
 
 
@@ -38,7 +43,7 @@ const UserLogin = () => {
             .then(result => {
                 const user = result.user;
                 // setLoginUserEmail(user.email);
-                navigate(from, { replace: true })
+
 
             })
             .catch(error => {
@@ -54,7 +59,7 @@ const UserLogin = () => {
         googleProviderLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                // console.log(user);
+                console.log(result);
                 navigateNow();
 
             })
@@ -65,10 +70,6 @@ const UserLogin = () => {
     }
 
 
-    // setup navigator After Register.
-    const navigateNow = () => {
-        setTimeout(() => { navigate(from, { replace: true }) }, 1);
-    }
 
 
 

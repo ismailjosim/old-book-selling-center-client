@@ -87,7 +87,7 @@ const AddProducts = () => {
                             <label className="label">
                                 <span className="label-text">Original Price</span>
                             </label>
-                            <input type="text" {...register("originalPrice",
+                            <input type="number" {...register("originalPrice",
                                 {
                                     required: "Name is Required"
                                 })}
@@ -99,7 +99,7 @@ const AddProducts = () => {
                             <label className="label">
                                 <span className="label-text">Resell Price</span>
                             </label>
-                            <input type="text" {...register("resellPrice",
+                            <input type="number" {...register("resellPrice",
                                 {
                                     required: "Name is Required"
                                 })}
@@ -168,7 +168,7 @@ const AddProducts = () => {
                                 <span className="label-text">Product Category</span>
                             </label>
                             <select
-                                className="select select-primary w-full"
+                                className="select select-primary w-full capitalize"
                                 {...register("category")}
                             >
                                 <option value="101">academic books</option>

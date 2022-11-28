@@ -23,8 +23,8 @@ const UserLogin = () => {
 
 
     // todo: set user email for jwt verification
-    const [loginUserEmail, setLoginUserEmail] = useState('')
-    const [token] = useToken(loginUserEmail);
+    const [loginEmail, setLoginEmail] = useState('')
+    const [token] = useToken(loginEmail);
 
 
     // footer: navigate when we get token
@@ -33,21 +33,16 @@ const UserLogin = () => {
     }
 
 
-
-
-
     // TODO: User Login Function
     const onSubmit = data => {
         setLoginError('')
         loginUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                // setLoginUserEmail(user.email);
-
+                setLoginEmail(user.email);
 
             })
             .catch(error => {
-                console.log(error.message);
                 setLoginError(error.message)
             })
     }
@@ -59,7 +54,7 @@ const UserLogin = () => {
         googleProviderLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log(result);
+                // setLoginUserEmail(user.email);
                 navigateNow();
 
             })
@@ -68,8 +63,6 @@ const UserLogin = () => {
             })
 
     }
-
-
 
 
 

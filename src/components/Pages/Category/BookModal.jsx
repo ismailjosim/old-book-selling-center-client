@@ -72,7 +72,7 @@ const BookModal = ({ selected, setSelected }) => {
                                 <input required name="number" type="number" placeholder="Your Phone Number" className="w-full p-3 rounded-md border input-primary" />
                             </div>
                             <div className="modal-action">
-                                <label htmlFor="book-modal" className="btn btn-error text-white">Cancel</label>
+                                <label onClick={() => setSelected(null)} htmlFor="book-modal" className="btn btn-error text-white">Cancel</label>
                                 <button type="submit" htmlFor="book-modal" className="btn btn-primary text-white">Submit</button>
                             </div>
                         </form>

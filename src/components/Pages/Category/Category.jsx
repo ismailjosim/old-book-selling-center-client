@@ -4,7 +4,7 @@ import Card from './Card';
 import BookModal from './BookModal';
 const Category = () => {
     const data = useLoaderData();
-    const [selected, setSelected] = useState(null)
+    const [selected, setSelected] = useState(null);
 
 
     return (

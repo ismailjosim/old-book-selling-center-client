@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
@@ -7,15 +7,6 @@ import Swal from 'sweetalert2';
 
 
 const AllBuyer = () => {
-
-
-    // section: delete User from server
-
-
-
-
-
-
 
     // section: Get all User from server
     const { data: users = [], isLoading, refetch } = useQuery({
@@ -32,10 +23,12 @@ const AllBuyer = () => {
         }
     })
 
+
     if (isLoading) {
         return <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-primary"></div>
     }
 
+    // TODO: Delete User From Database
     const handleDelete = id => {
         fetch(`http://localhost:5000/user/${ id }`, {
             method: "DELETE",
@@ -83,22 +76,16 @@ const AllBuyer = () => {
                             refetch()
                         }
                     })
-
             }
 
-
-            if (result.isConfirmed) {
-
-            }
         })
 
     }
 
 
 
-
-
-
+    // Show Only Buyer
+    const buyer = users.filter(user => user.role === 'Buyer');
 
 
 
@@ -109,24 +96,27 @@ const AllBuyer = () => {
     return (
 
         <div className="overflow-x-auto">
+            <h2 className='text-3xl font-semibold text-center mb-5'>See All Buyers Here: {buyer.length}</h2>
             <table className="table w-full">
                 <thead>
                     <tr>
                         <th></th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Type</th>
                         <th>status</th>
                         <th>action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        users?.map((user, idx) => {
+                        buyer?.map((user, idx) => {
                             return (
                                 <tr key={user._id}>
                                     <th>{idx + 1}</th>
-                                    <td>{user?.username}</td>
+                                    <td className='uppercase'>{user?.username}</td>
                                     <td>{user.email}</td>
+                                    <td>{user.role}</td>
                                     <td>
                                         {
                                             user.status !== 'verified' ?

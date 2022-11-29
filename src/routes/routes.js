@@ -1,13 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
 import UserLogin from '../components/Auth/UserLogin';
 import UserRegister from '../components/Auth/UserRegister';
-import Buyers from '../components/Dashboard/Admin/Buyers/Buyers';
-import Report from '../components/Dashboard/Admin/Report/Report';
-import Sellers from '../components/Dashboard/Admin/Sellers/Sellers';
+import AllBuyer from '../components/Dashboard/Admin/AllBuyer';
+import AllSellers from '../components/Dashboard/Admin/AllSellers';
+import Report from '../components/Dashboard/Admin/Report';
+import Sellers from '../components/Dashboard/Admin/Sellers';
 import MyOrder from '../components/Dashboard/Buyer/MyOrder';
 import MyWishList from '../components/Dashboard/Buyer/MyWishList';
+import Dashboard from '../components/Dashboard/Dashboard';
 import AddProducts from '../components/Dashboard/Seller/AddProducts';
-import AllBuyer from '../components/Dashboard/Seller/AllBuyer';
 import MyProducts from '../components/Dashboard/Seller/MyProducts';
 import Blog from '../components/Pages/Blog/Blog';
 import Category from '../components/Pages/Category/Category';
@@ -64,16 +65,15 @@ const routes = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <Buyers />
+                element: <Dashboard />
             },
-
             {
                 path: '/dashboard/sellers',
-                element: <Admin><Sellers /></Admin>
+                element: <Admin><AllSellers /></Admin>
             },
             {
                 path: '/dashboard/allBuyers',
-                element: <Admin><Buyers /></Admin>
+                element: <Admin><AllBuyer /></Admin>
             },
             {
                 path: '/dashboard/reported',

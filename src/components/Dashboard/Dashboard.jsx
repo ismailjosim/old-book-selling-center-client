@@ -13,7 +13,7 @@ const Dashboard = () => {
             <div className='flex justify-center items-center'>
                 <div className="max-w-md p-8 sm:flex sm:space-x-6 bg-slate-100 rounded-md shadow-md text-black">
                     <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
-                        <img src={photoURL} alt="" className="object-cover object-center w-full h-full rounded" />
+                        <img src={photoURL} alt="" className="object-cover object-center w-full h-full rounded-full  ring ring-primary ring-offset-base-100 ring-offset-2" />
                     </div>
                     <div className="flex flex-col space-y-4 justify-center">
                         <div>

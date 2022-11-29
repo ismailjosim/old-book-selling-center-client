@@ -20,6 +20,7 @@ const Buyers = () => {
         return <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-primary"></div>
     }
 
+    const buyer = users.filter(user => user.role === 'Buyer');
 
 
     return (
@@ -37,7 +38,7 @@ const Buyers = () => {
                 </thead>
                 <tbody>
                     {
-                        users?.map((user, idx) => {
+                        buyer?.map((user, idx) => {
                             return (
                                 <tr key={user._id}>
                                     <th>{idx + 1}</th>

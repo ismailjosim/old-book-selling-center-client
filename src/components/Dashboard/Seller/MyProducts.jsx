@@ -32,7 +32,7 @@ const MyProducts = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
-                            <th>Serial</th>
+                            <th>Name</th>
                             <th>Image</th>
                             <th>Price</th>
                             <th>Advertise Now</th>
@@ -41,10 +41,10 @@ const MyProducts = () => {
                     </thead>
                     <tbody>
                         {
-                            products?.map((product, idx) => {
+                            products?.map(product => {
                                 return (
                                     <tr key={product._id}>
-                                        <th>{idx + 1}</th>
+                                        <th>{product.title}</th>
                                         <td>
                                             <div className="flex items-center space-x-3">
                                                 <div className="avatar">

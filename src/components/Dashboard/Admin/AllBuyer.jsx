@@ -77,20 +77,12 @@ const AllBuyer = () => {
                         }
                     })
             }
-
         })
-
     }
-
 
 
     // Show Only Buyer
     const buyer = users.filter(user => user.role === 'Buyer');
-
-
-
-
-
 
 
     return (

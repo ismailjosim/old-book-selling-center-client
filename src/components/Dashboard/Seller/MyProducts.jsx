@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
@@ -8,7 +7,7 @@ const MyProducts = () => {
     const { user } = useContext(AuthContext)
 
 
-    const { data: products = [], isLoading, refetch } = useQuery({
+    const { data: products = [], refetch } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
             try {
@@ -25,48 +24,6 @@ const MyProducts = () => {
             }
         }
     })
-
-
-
-
-
-    const handleBuyerVerify = (id, name, email) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: `${ name }`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#6FBF18',
-            cancelButtonColor: '#F32B42',
-            confirmButtonText: 'Confirm'
-        }).then((result) => {
-            if (result) {
-                fetch(`http://localhost:5000/users/verify/${ id }`, {
-                    method: "PATCH",
-                    headers: {
-                        authorization: `bearer ${ localStorage.getItem('accessToken') }`
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.result.modifiedCount > 0) {
-                            Swal.fire(
-                                'Verified!',
-                                'Verification Successfully.',
-                                'success'
-                            )
-                            refetch()
-                        }
-                    })
-            }
-        })
-    }
-
-
-
-
-
-
 
 
 
@@ -103,11 +60,6 @@ const MyProducts = () => {
             }
         })
     }
-
-
-
-
-
 
 
 

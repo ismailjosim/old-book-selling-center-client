@@ -4,12 +4,14 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 const AddProducts = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { user } = useContext(AuthContext);
     const date = new Date();
     const time = format(date, 'PP');
+    const navigate = useNavigate()
 
 
     // section: imageBB api
@@ -55,8 +57,7 @@ const AddProducts = () => {
                         .then(result => {
                             if (result.products.acknowledged) {
                                 toast.success('Product Added SuccessFully', { autoClose: 1000 })
-                                console.log(result);
-
+                                navigate('/dashboard/myproducts')
                             }
                         })
                 }

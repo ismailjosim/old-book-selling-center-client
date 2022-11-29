@@ -4,7 +4,6 @@ import UserRegister from '../components/Auth/UserRegister';
 import AllBuyer from '../components/Dashboard/Admin/AllBuyer';
 import AllSellers from '../components/Dashboard/Admin/AllSellers';
 import Report from '../components/Dashboard/Admin/Report';
-import Sellers from '../components/Dashboard/Admin/Sellers';
 import MyOrder from '../components/Dashboard/Buyer/MyOrder';
 import MyWishList from '../components/Dashboard/Buyer/MyWishList';
 import Dashboard from '../components/Dashboard/Dashboard';

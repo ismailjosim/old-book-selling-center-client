@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 const Buyers = () => {
-    const { data: users = [], isLoading, refetch } = useQuery({
+    const { data: users = [], isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             try {
-                const res = await fetch("http://localhost:5000/users")
+                const res = await fetch("https://old-book-center-server.vercel.app/users")
                 const data = await res.json();
                 return data?.users;
 

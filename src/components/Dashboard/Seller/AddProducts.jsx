@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-toastify';
@@ -46,7 +45,7 @@ const AddProducts = () => {
                         photo: imgData.data.url,
                         postTime: time
                     }
-                    fetch('http://localhost:5000/products', {
+                    fetch('https://old-book-center-server.vercel.app/products', {
                         method: "POST",
                         headers: {
                             'content-type': 'application/json'

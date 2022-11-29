@@ -105,7 +105,7 @@ const UserRegister = () => {
             username,
             status: 'Not verified'
         }
-        fetch('http://localhost:5000/users', {
+        fetch('https://old-book-center-server.vercel.app/users', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

@@ -22,7 +22,7 @@ const BookModal = ({ selected, setSelected }) => {
             meeting,
             phone
         }
-        const url = "http://localhost:5000/orders";
+        const url = "https://old-book-center-server.vercel.app/orders";
         fetch(url, {
             method: "POST",
             headers: {

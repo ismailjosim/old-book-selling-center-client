@@ -13,7 +13,7 @@ const AllBuyer = () => {
         queryKey: ['users'],
         queryFn: async () => {
             try {
-                const res = await fetch("http://localhost:5000/users")
+                const res = await fetch("https://old-book-center-server.vercel.app/users")
                 const data = await res.json();
                 return data?.users;
 
@@ -30,7 +30,7 @@ const AllBuyer = () => {
 
     // TODO: Delete User From Database
     const handleDelete = id => {
-        fetch(`http://localhost:5000/user/${ id }`, {
+        fetch(`https://old-book-center-server.vercel.app/user/${ id }`, {
             method: "DELETE",
             headers: {
                 authorization: `bearer ${ localStorage.getItem('accessToken') }`
@@ -59,7 +59,7 @@ const AllBuyer = () => {
             confirmButtonText: 'Confirm'
         }).then((result) => {
             if (result) {
-                fetch(`http://localhost:5000/users/verify/${ id }`, {
+                fetch(`https://old-book-center-server.vercel.app/users/verify/${ id }`, {
                     method: "PATCH",
                     headers: {
                         authorization: `bearer ${ localStorage.getItem('accessToken') }`

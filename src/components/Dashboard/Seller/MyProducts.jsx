@@ -11,7 +11,7 @@ const MyProducts = () => {
         queryKey: ['products'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/products?email=${ user.email }`, {
+                const res = await fetch(`https://old-book-center-server.vercel.app/products?email=${ user.email }`, {
                     headers: {
                         authorization: `bearer ${ localStorage.getItem('accessToken') }`
                     }
@@ -38,7 +38,7 @@ const MyProducts = () => {
             confirmButtonText: 'Confirm'
         }).then((result) => {
             if (result) {
-                fetch(`http://localhost:5000/product/${ productId }`, {
+                fetch(`https://old-book-center-server.vercel.app/product/${ productId }`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${ localStorage.getItem('accessToken') }`

@@ -37,7 +37,11 @@ const routes = createBrowserRouter([
             },
             {
                 path: '/product/:id',
-                loader: ({ params }) => fetch(`https://old-book-center-server.vercel.app/product/${ params.id }`),
+                loader: ({ params }) => fetch(`https://old-book-center-server.vercel.app/product/${ params.id }`, {
+                    headers: {
+                        authorization: `bearer ${ localStorage.getItem('accessToken') }`
+                    }
+                }),
                 element: <Private><Category /></Private>
 
             },

@@ -7,7 +7,11 @@ const useSeller = (email) => {
 
     useEffect(() => {
         if (email) {
-            fetch(`https://old-book-center-server.vercel.app/users/seller/${ email }`)
+            fetch(`https://old-book-center-server.vercel.app/users/seller/${ email }`, {
+                headers: {
+                    authorization: `bearer ${ localStorage.getItem('accessToken') }`
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
                     setIsSeller(data.isSeller)

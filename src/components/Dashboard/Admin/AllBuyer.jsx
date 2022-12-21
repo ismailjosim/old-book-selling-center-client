@@ -13,7 +13,11 @@ const AllBuyer = () => {
         queryKey: ['users'],
         queryFn: async () => {
             try {
-                const res = await fetch("https://old-book-center-server.vercel.app/users")
+                const res = await fetch("https://old-book-center-server.vercel.app/users", {
+                    headers: {
+                        authorization: `bearer ${ localStorage.getItem('accessToken') }`
+                    }
+                })
                 const data = await res.json();
                 return data?.users;
 

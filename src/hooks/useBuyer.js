@@ -6,7 +6,11 @@ const useBuyer = (email) => {
 
     useEffect(() => {
         if (email) {
-            fetch(`https://old-book-center-server.vercel.app/users/buyer/${ email }`)
+            fetch(`https://old-book-center-server.vercel.app/users/buyer/${ email }`, {
+                headers: {
+                    authorization: `bearer ${ localStorage.getItem('accessToken') }`
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
                     setIsBuyer(data.isBuyer);
